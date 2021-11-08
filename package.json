@@ -1,0 +1,30 @@
+{
+  "name": "my-react-cli",
+  "version": "1.0.0",
+  "main": "./bin/cli.js",
+  "bin": {
+    "my-react-cli": "./bin/cli.js"
+  },
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^8.3.0",
+    "cross-spawn": "^7.0.3",
+    "execa": "^5.1.1",
+    "inquirer": "^8.2.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^14.1.0",
+    "@commitlint/config-conventional": "^14.1.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^11.2.6",
+    "prettier": "^2.4.1"
+  },
+  "scripts": {
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  }
+}
