@@ -3,6 +3,7 @@ import question from "./questions/index.js";
 import { isExists, removeDir } from "./utils";
 import chalk from "chalk";
 import install from "./scripts/install.js";
+import spawn from "cross-spawn";
 
 const { projectName, dependency } = await question(); // 获取用户输入
 if (isExists(projectName)) {

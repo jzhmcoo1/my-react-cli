@@ -1,6 +1,7 @@
 import { spawn } from "cross-spawn";
 import { cwdPath, writeFile, readFile } from "../utils";
 import chalk from "chalk";
+import prettier from "prettier";
 
 export default (projectName, dependencies) => {
   dependencies.forEach((item) => {
@@ -16,7 +17,7 @@ export default (projectName, dependencies) => {
   dependencies.forEach((item) => {
     item.split(" ").forEach((d) => {
       if (d === "prettier") {
-        writeFile(projectName, ".prettierrc.json", {});
+        writeFile(projectName, ".prettierrc.json", "{}");
         writeFile(
           projectName,
           ".prettierignore",
@@ -47,12 +48,25 @@ coverage
         packageObj["lint-staged"] = {
           ["**/*"]: "prettier --write --ignore-unknown",
         };
-        writeFile(projectName, "package.json", packageObj);
+        writeFile(
+          projectName,
+          "package.json",
+          prettier.format(JSON.stringify(packageObj), {
+            parser: "json",
+            tabWidth: 2,
+          })
+        );
       } else if (d === "@commitlint/config-conventional") {
         writeFile(
           projectName,
           "commitlint.config.js",
-          "module.exports = {extends: ['@commitlint/config-conventional']}"
+          prettier.format(
+            "module.exports = {extends: ['@commitlint/config-conventional']}",
+            {
+              parser: "babel",
+              tabWidth: 2,
+            }
+          )
         );
         spawn.sync(
           "npx",
@@ -60,7 +74,7 @@ coverage
             "husky",
             "add",
             ".husky/commit-msg",
-            "'npx --no -- commitlint --edit \"$1\"'",
+            'npx --no -- commitlint --edit "$1"',
           ],
           {
             cwd: cwdPath(projectName),

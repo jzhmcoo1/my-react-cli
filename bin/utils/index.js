@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import chalk from "chalk";
 
 export const cwdPath = (name) => path.join(process.cwd(), name);
 
@@ -16,21 +17,19 @@ export const removeDir = (name) => {
     if (err) {
       throw err;
     }
-    console.log("删除成功");
+    console.log(chalk.cyan(`删除 ${cwdPath(name)} 成功`));
   });
 };
 
 export const writeFile = (projectName, filename, content) => {
-  fs.writeFile(
-    cwdPath(path.join(projectName, filename)),
-    typeof content === "object" ? JSON.stringify(content) : content,
-    (err) => {
-      if (err) {
-        throw err;
-      }
-      console.log("写入成功");
+  const __filename = cwdPath(path.join(projectName, filename));
+  console.log(__filename);
+  fs.writeFile(__filename, content, (err) => {
+    if (err) {
+      throw err;
     }
-  );
+    console.log(chalk.greenBright(`写入 ${__filename} 成功`));
+  });
 };
 
 export const readFile = (projectName, filename) => {
