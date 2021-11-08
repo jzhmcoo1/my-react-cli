@@ -23,6 +23,13 @@
 按照这个思路,我们可以先获取用户输入,得到用户想要安装的`dependencies`
 ,然后通过 nodeApi 执行对应的安装命令,最后也是通过 fs 的 api 创建文件并写入配置,为了格式化输入,也是在项目中引入了 prettier,格式化后进行文件的写入
 
+### 本地运行:
+
+1. 下载项目
+2. 到对应目录安装依赖
+3. 执行`npm link`或者`yarn link`
+4. 随便新建个文件夹测试`my-react-cli`命令
+
 ### 用到的库
 
 - [inquirer - 询问用户信息](https://github.com/SBoudrias/Inquirer.js/)
